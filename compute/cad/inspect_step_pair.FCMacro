@@ -1,0 +1,65 @@
+import FreeCAD as A, FreeCADGui as G, Import, traceback, math
+import os
+from pathlib import Path
+from PySide import QtCore
+from pivy import coin
+
+out = (Path(os.getenv("CALIBRATION_OUTPUT", "artifacts/inspection")) / "FreeCAD_STEP_视图")
+out.mkdir(exist_ok=True)
+log = (out/'import_log.txt').open('w', encoding='utf-8', buffering=1)
+def report(*args):
+    print(*args,file=log,flush=True)
+def process(i):
+    file = (Path(os.getenv("CALIBRATION_STEP_DIR", Path.home() / "Desktop"))) / ('机器人总装（对外）(%d).STEP'%i)
+    doc = A.newDocument('STEP_'+str(i))
+    report('import',file)
+    Import.insert(str(file),doc.Name)
+    doc.recompute()
+    shapes = [o for o in doc.Objects if hasattr(o,'Shape') and not o.Shape.isNull()]
+    if not shapes:
+        raise ValueError("FreeCAD imported no displayable geometry")
+    def box(o):
+        s=o.Shape.copy()
+        s.Placement=o.getGlobalPlacement()
+        return s.BoundBox
+    keys={}
+    for o in shapes:
+        for word in ['胸腔','头部','底盘','左臂','右臂','左手','右手','相机','胸部']:
+            if word in o.Label and word not in keys:
+                keys[word]=box(o)
+    report(len(shapes), {k:str(b) for k,b in keys.items()})
+    v=G.activeDocument().activeView()
+    v.viewAxonometric(); v.fitAll(); G.updateGui()
+    def save(tag):
+        v.saveImage(str(out/('STEP_%d_%s.png'%(i,tag))),1600,1100,'White')
+    save('assembly_iso')
+    if '头部' in keys and '底盘' in keys:
+        up=keys['头部'].Center-keys['底盘'].Center
+        dominant=max(range(3),key=lambda j:abs(up[j]))
+        axis=[0,0,0];axis[dominant]=1 if up[dominant]>0 else -1
+        up=A.Vector(*axis)
+        bb=keys.get('胸腔',keys['头部'])
+        widths=[bb.XLength,bb.YLength,bb.ZLength]
+        horizontal=max((j for j in range(3) if j!=dominant),key=lambda j:widths[j])
+        axis=[0,0,0];axis[horizontal]=1
+        right=A.Vector(*axis)
+        for sign in [1,-1]:
+            x=right*sign
+            z=x.cross(up)
+            v.setCameraOrientation(A.Rotation(x,up,z,'ZYX').Q)
+            v.fitAll(); G.updateGui(); save('full_%s'%sign)
+            cam=v.getCameraOrientation()
+            node=v.getCameraOrientation() and v.getCameraNode()
+            dist=node.focalDistance.getValue()
+            pos=bb.Center+z*dist
+            node.position.setValue(pos.x,pos.y,pos.z)
+            node.height.setValue(max(widths[horizontal]*1.05,widths[dominant]*1.08))
+            G.updateGui(); save('chest_%s'%sign)
+    v.fitAll()
+    report('done',i)
+def start():
+    for i in [2,1]:
+        try: process(i)
+        except: report(traceback.format_exc())
+    report('finished')
+QtCore.QTimer.singleShot(400,start)

@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robotcal-sim2real"
+version = "0.1.0"
+description = "Configuration-driven robot data collection, field motion bridges and offline calibration"
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6,<7", "numpy>=1.24,<3"]
+
+[project.optional-dependencies]
+vision = ["opencv-contrib-python>=4.8,<5"]
+fit = ["scipy>=1.10,<2"]
+
+[project.scripts]
+robotcal = "calibration_platform.adapters.loader:main"
+
+[tool.setuptools]
+packages = [
+  "calibration_platform", "calibration_platform.adapters", "calibration_platform.adapters.xuchuang",
+  "calibration_platform.collect", "calibration_platform.compute", "calibration_platform.control",
+  "calibration_platform.vendor", "calibration_platform.vendor.xuchuang",
+  "calibration_platform.vendor.xuchuang.camera", "calibration_platform.vendor.xuchuang.camera.scripts"
+]
+
+[tool.setuptools.package-dir]
+"calibration_platform.adapters" = "adapters"
+"calibration_platform.collect" = "collect"
+"calibration_platform.compute" = "compute"
+"calibration_platform.control" = "control"
+"calibration_platform.vendor" = "vendor"
+
+[tool.setuptools.package-data]
+"calibration_platform.vendor.xuchuang.camera" = ["config/*.json"]

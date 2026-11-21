@@ -1,0 +1,30 @@
+schema_version: 1
+robot: null
+adapter: null
+feedback:
+  topic: null
+  type: null
+  position_unit: null
+  velocity_unit: null
+feedback_timeout_s: null
+arms:
+  left:
+    id: null
+    joint_count: null
+  right:
+    id: null
+    joint_count: null
+motion:
+  action: null
+  type: null
+  position_unit: null
+  vel_percent: null
+  acc_percent: null
+joint_map: null
+joint_map_verified: null
+working_limits: null
+model_path: null
+stop:
+  verified: null
+  interface: null
+accepted_command_readback: null

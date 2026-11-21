@@ -1,0 +1,21 @@
+schema_version: 1
+robot: xuchuang
+adapter: xuchuang_waist_ros2
+feedback:
+  topic: /MotorState
+  type: std_msgs/msg/Float32MultiArray
+  position_unit: deg
+  velocity_unit: deg/s
+feedback_timeout_s: 1.0
+motion:
+  topic: /WaistCtrl
+  type: torso_chassis_interfaces/msg/TorsoWaistCtrl
+  position_unit: deg
+joint_map: null
+joint_map_verified: false
+model_path: null
+stop:
+  verified: false
+  interface: null
+field_status: v3 failed on feedback timeout; pitch motion and physical coupling not
+  implemented

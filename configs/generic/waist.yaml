@@ -1,0 +1,19 @@
+schema_version: 1
+robot: null
+adapter: null
+feedback:
+  topic: null
+  type: null
+  position_unit: null
+  velocity_unit: null
+feedback_timeout_s: null
+motion:
+  topic: null
+  type: null
+  position_unit: null
+joint_map: null
+joint_map_verified: null
+model_path: null
+stop:
+  verified: null
+  interface: null

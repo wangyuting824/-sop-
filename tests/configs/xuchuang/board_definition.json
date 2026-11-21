@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "board_id": "project_apriltag_grid_11x8_v1",
+  "family": "tag36h11",
+  "markers_x": 11,
+  "markers_y": 8,
+  "tag_size_m": 0.049,
+  "tag_spacing_m": 0.012,
+  "id_grid": [
+    [80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90],
+    [69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79],
+    [58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68],
+    [47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57],
+    [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46],
+    [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35],
+    [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+    [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+  ],
+  "id_range": [3, 90],
+  "opencv_corner_rotation_steps": 2,
+  "opencv_corner_correspondence": ["BR", "BL", "TL", "TR"],
+  "ordering": "image_top_to_bottom,left_to_right",
+  "measure_before_use": "Use a caliper to confirm the physical black-border size and gap. If the actual board differs, copy this file to the session, change the measurements and create a new board_id; do not edit historical trial data."
+}

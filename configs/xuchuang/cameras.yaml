@@ -1,0 +1,35 @@
+schema_version: 1
+robot: xuchuang
+adapter: xuchuang_camera_driver_ros2
+cameras:
+  head:
+    image_topic: /camera_driver/slots/head/color
+    info_topic: /camera_driver/slots/head/color/camera_info
+    h264_topic: /camera_driver/slots/head/h264
+  left_wrist:
+    image_topic: /camera_driver/slots/left_wrist/color
+    info_topic: /camera_driver/slots/left_wrist/color/camera_info
+    h264_topic: /camera_driver/slots/left_wrist/h264
+  right_wrist:
+    image_topic: /camera_driver/slots/right_wrist/color
+    info_topic: /camera_driver/slots/right_wrist/color/camera_info
+    h264_topic: /camera_driver/slots/right_wrist/h264
+message_types:
+  image: sensor_msgs/msg/Image
+  camera_info: sensor_msgs/msg/CameraInfo
+  h264: camera_driver/msg/H264Packet
+joint_feedback_topic: /manipulator/joint_states
+arm_feedback_topic: /manipulator/arm_state
+stream:
+  acquire: true
+  acquire_service: /camera_driver/acquire_stream
+  acquire_type: camera_driver/srv/AcquireStream
+  release_service: /camera_driver/release_stream
+  release_type: camera_driver/srv/ReleaseStream
+  image_source: auto
+  codec: h264
+  stream_mask: 1
+  priority: 0
+board_path: board_definition.json
+tag_arm: null
+field_status: last valid samples left=9 right=9 head=10; target 10+5 not met

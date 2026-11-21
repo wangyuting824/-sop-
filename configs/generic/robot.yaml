@@ -1,0 +1,11 @@
+schema_version: 1
+robot: null
+model_path: null
+base_frame: null
+tcp_frame: null
+interface_files:
+  arms: arms.yaml
+  waist: waist.yaml
+  gripper: gripper.yaml
+  cameras: cameras.yaml
+model_mapping_verified: false

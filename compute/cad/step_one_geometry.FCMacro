@@ -1,0 +1,37 @@
+import FreeCAD as A, FreeCADGui as G, Part, traceback
+import os
+from pathlib import Path
+from PySide import QtCore
+out=(Path(os.getenv("CALIBRATION_OUTPUT", "artifacts/inspection")) / "FreeCAD_STEP_视图")
+def load_one():
+    with (out/'step_one_geometry.log').open('w',encoding='utf-8',buffering=1) as log:
+        try:
+            doc=A.newDocument('Assembly_1')
+            doc.Label='机器人总装（对外）(1).STEP'
+            p=(Path(os.getenv("CALIBRATION_STEP_DIR", Path.home() / "Desktop")) / "机器人总装（对外）(1).STEP")
+            print('Reading',p,file=log)
+            s=Part.read(str(p))
+            if s.isNull() or not s.BoundBox.isValid():
+                raise ValueError("STEP has no displayable geometry")
+            from pivy import coin
+            print('bounds',s.BoundBox,file=log)
+            o=doc.addObject('Part::Feature','Assembly')
+            o.Shape=s
+            o.ViewObject.DisplayMode='Flat Lines'
+            o.ViewObject.LineWidth=0.5
+            doc.recompute()
+            v=G.activeDocument().activeView()
+            v.viewFront()
+            v.fitAll()
+            G.updateGui()
+            v.saveImage(str(out/'STEP_1_complete.png'),1600,1100,'White')
+            cam=v.getCameraNode()
+            d=cam.focalDistance.getValue()
+            cam.position.setValue(185,-267-d,220)
+            cam.height.setValue(480)
+            G.updateGui()
+            v.saveImage(str(out/'STEP_1_detail.png'),1600,1100,'White')
+            v.fitAll()
+            print('done',file=log)
+        except: print(traceback.format_exc(),file=log)
+QtCore.QTimer.singleShot(300,load_one)

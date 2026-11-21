@@ -1,0 +1,30 @@
+schema_version: 1
+robot: xuchuang
+adapter: xuchuang_arms_ros2
+feedback:
+  topic: /manipulator/arm_state
+  type: manipulator/msg/ArmStateArray
+  position_unit: deg
+  velocity_unit: deg/s
+feedback_timeout_s: 2.0
+arms:
+  left:
+    id: 0
+    joint_count: 7
+  right:
+    id: 1
+    joint_count: 7
+motion:
+  action: /manipulator/move_joint
+  type: manipulator/action/MoveJoint
+  position_unit: deg
+  vel_percent: 0.01
+  acc_percent: 0.01
+joint_map: null
+joint_map_verified: false
+working_limits: null
+model_path: null
+stop:
+  verified: false
+  interface: null
+accepted_command_readback: null

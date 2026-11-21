@@ -1,0 +1,32 @@
+schema_version: 1
+robot: xuchuang
+adapter: xuchuang_gripper_ros2
+feedback:
+  topic: /end_effector/status
+  type: end_effector/msg/EndEffectorStatus
+feedback_timeout_s: 1.0
+services:
+  properties:
+    name: /end_effector/get_properties
+    type: end_effector/srv/GetProperties
+  set_position:
+    name: /end_effector/set_position
+    type: end_effector/srv/SetPosition
+  open:
+    name: /end_effector/open
+    type: std_srvs/srv/Trigger
+  close:
+    name: /end_effector/close
+    type: std_srvs/srv/Trigger
+slots:
+  left: left
+  right: right
+units:
+  position: mm
+endpoint_scope: module
+stop:
+  verified: false
+  interface: null
+accepted_command_readback: null
+full_stroke_mm: null
+field_status: v4 fixed TTY; CLOSE-position mismatch and interruption remain

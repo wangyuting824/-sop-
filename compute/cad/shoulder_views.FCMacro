@@ -1,0 +1,34 @@
+import FreeCAD as App, FreeCADGui as Gui
+import os
+from pathlib import Path
+import traceback
+output=(Path(os.getenv("CALIBRATION_OUTPUT", "artifacts/inspection")) / "FreeCAD_STEP_视图")
+with (output/'shoulder_log.txt').open('w',encoding='utf-8',buffering=1) as stream:
+    try:
+        doc=App.getDocument('STEP_2')
+        App.setActiveDocument(doc.Name)
+        view=Gui.activeDocument().activeView()
+        print([(o.Name,o.Label) for o in doc.Objects if '胸腔' in o.Label or 'Document-3' in o.Label],file=stream)
+        targets=[o for o in doc.Objects if o.Label.startswith('Document-3') and o.ViewObject.Visibility]
+        for o in targets:
+            print(o.Name,o.Label, file=stream)
+            o.ViewObject.Visibility=False
+        view.viewFront()
+        view.fitAll()
+        Gui.updateGui()
+        view.saveImage(str(output/'STEP_2_exposed_full.png'),1600,1100,'White')
+        node=view.getCameraNode()
+        focal=node.focalDistance.getValue()
+        node.position.setValue(185,-267-focal,270)
+        node.height.setValue(365)
+        Gui.updateGui()
+        view.saveImage(str(output/'STEP_2_exposed_chest.png'),1600,1000,'White')
+        candidates=[o for o in doc.Objects if '胸腔' in o.Label and o.ViewObject.Visibility]
+        for o in candidates: o.ViewObject.Visibility=False
+        Gui.updateGui()
+        view.saveImage(str(output/'STEP_2_shoulder_mounts.png'),1600,1000,'White')
+        for o in candidates: o.ViewObject.Visibility=True
+        for o in targets: o.ViewObject.Visibility=True
+        view.fitAll()
+        print('done',file=stream)
+    except: print(traceback.format_exc(),file=stream)

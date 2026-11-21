@@ -1,0 +1,9 @@
+schema_version: 1
+robot: null
+adapter: ros2_joint_state
+feedback:
+  topic: null
+  type: sensor_msgs/msg/JointState
+  position_unit: rad
+  velocity_unit: rad/s
+feedback_timeout_s: 2.0

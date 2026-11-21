@@ -1,0 +1,7 @@
+Result:
+    result:
+  code: 0
+  vendor_code: 0
+  message: ''
+
+Goal finished with status: SUCCEEDED

@@ -1,0 +1,31 @@
+schema_version: 1
+robot: null
+adapter: null
+feedback:
+  topic: null
+  type: null
+feedback_timeout_s: null
+services:
+  properties:
+    name: null
+    type: null
+  set_position:
+    name: null
+    type: null
+  open:
+    name: null
+    type: null
+  close:
+    name: null
+    type: null
+slots:
+  left: null
+  right: null
+units:
+  position: null
+endpoint_scope: null
+stop:
+  verified: null
+  interface: null
+accepted_command_readback: null
+full_stroke_mm: null

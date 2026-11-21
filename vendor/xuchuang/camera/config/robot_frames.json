@@ -1,0 +1,8 @@
+{
+  "urdf_path": "",
+  "arms": {
+    "left": {"reference_frame": "", "tool_frame": "", "joint_map": {}},
+    "right": {"reference_frame": "", "tool_frame": "", "joint_map": {}}
+  },
+  "instructions": "Only needed when solving. Use the real robot URDF and actual link names. Empty joint_map uses the recorded joint names unchanged. If URDF names differ, map each observed name to its URDF joint name, for example left_joint_0 to the actual corresponding URDF joint. Do not use synthetic or example URDFs. Reference frame must be stationary during the session. Head uses the arm recorded in tag-arm."
+}

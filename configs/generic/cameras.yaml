@@ -1,0 +1,34 @@
+schema_version: 1
+robot: null
+adapter: null
+cameras:
+  head:
+    image_topic: null
+    info_topic: null
+    h264_topic: null
+  left_wrist:
+    image_topic: null
+    info_topic: null
+    h264_topic: null
+  right_wrist:
+    image_topic: null
+    info_topic: null
+    h264_topic: null
+message_types:
+  image: null
+  camera_info: null
+  h264: null
+joint_feedback_topic: null
+arm_feedback_topic: null
+stream:
+  acquire: null
+  acquire_service: null
+  acquire_type: null
+  release_service: null
+  release_type: null
+  image_source: null
+  codec: null
+  stream_mask: null
+  priority: null
+board_path: null
+tag_arm: null

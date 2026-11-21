@@ -1,0 +1,17 @@
+[
+  {
+    "fixture": "gripper.jsonl",
+    "source": "result/gripper_20261111_164905_778466/messages_raw.jsonl",
+    "source_sha256": "812069c3e8009e67ca3ed3b270f5d76ae9c5640cb48ae8adf3768e83b3a77577"
+  },
+  {
+    "fixture": "waist.jsonl",
+    "source": "result/robotcal_data/waist_20261111_163603_733272/messages_raw.jsonl",
+    "source_sha256": "9540e62745c9302340fe52a74be28c359156f249312f51539daac93f4dc9ae7b"
+  },
+  {
+    "fixture": "arms.jsonl",
+    "source": "result/robotcal_data/motion_logs/20261111_160246_130215/feedback_raw.yaml",
+    "source_sha256": "cb82235cdeae0d27551165a02af144720611964c62b5b4053a700d4f17e6bb82"
+  }
+]
